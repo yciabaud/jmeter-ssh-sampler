@@ -130,5 +130,12 @@
             </resource>
         </resources>	
     </build>
+	
+	<repositories>
+		<repository>
+			<id>Maven JMeter Repo</id>
+			<url>http://yciabaud.github.com/jmeter-maven-plugin/repository</url>
+		</repository>
+	</repositories>
 
 </project>
