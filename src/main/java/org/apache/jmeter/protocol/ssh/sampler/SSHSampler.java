@@ -131,14 +131,22 @@ public class SSHSampler extends AbstractSampler implements TestBean {
         ChannelExec channel = (ChannelExec) session.openChannel("exec");
 
         BufferedReader br = new BufferedReader(new InputStreamReader(channel.getInputStream()));
+        BufferedReader err = new BufferedReader(new InputStreamReader(channel.getErrStream()));
         channel.setCommand(command);
         res.sampleStart();
         channel.connect();
 
+        sb.append("stdin:\n======\n\n");
         for (String line = br.readLine(); line != null; line = br.readLine()) {
             sb.append(line);
             sb.append("\n");
         }
+        sb.append("stderr:\n======\n\n");
+        for (String line = err.readLine(); line != null; line = err.readLine()) {
+            sb.append(line);
+            sb.append("\n");
+        }
+        
         res.sampleEnd();
 
         channel.disconnect();
