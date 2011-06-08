@@ -91,8 +91,8 @@ public class SSHSampler extends AbstractSampler implements TestBean {
             response = doCommand(session, command, res);
             res.setResponseData(response.getBytes());
 
-            res.setSuccessful(true);
-            res.setResponseCodeOK();
+            res.setSuccessful("0".equals(res.getResponseCode()));
+
             res.setResponseMessageOK();
         } catch (JSchException e1) {
             res.setSuccessful(false);
@@ -136,18 +136,20 @@ public class SSHSampler extends AbstractSampler implements TestBean {
         res.sampleStart();
         channel.connect();
 
-        sb.append("stdin:\n======\n\n");
+        sb.append("=== stdin ===\n\n");
         for (String line = br.readLine(); line != null; line = br.readLine()) {
             sb.append(line);
             sb.append("\n");
         }
-        sb.append("stderr:\n======\n\n");
+        sb.append("\n\n=== stderr ===\n\n");
         for (String line = err.readLine(); line != null; line = err.readLine()) {
             sb.append(line);
             sb.append("\n");
         }
         
+        res.setResponseCode(String.valueOf(channel.getExitStatus()));
         res.sampleEnd();
+        
 
         channel.disconnect();
         return sb.toString();
