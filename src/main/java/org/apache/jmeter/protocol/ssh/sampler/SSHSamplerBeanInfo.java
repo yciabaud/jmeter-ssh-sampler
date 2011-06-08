@@ -23,63 +23,73 @@ import org.apache.jmeter.testbeans.BeanInfoSupport;
 
 public class SSHSamplerBeanInfo extends BeanInfoSupport {
 
-	public SSHSamplerBeanInfo() {
-		super(SSHSampler.class);
-		
-		createPropertyGroup("host", // $NON-NLS-1$
-				new String[]{
-				"hostname", // $NON-NLS-1$
-				"port", // $NON-NLS-1$
-				"connectionTimeout"
-		});
-		
-		createPropertyGroup("user", // $NON-NLS-1$
-				new String[]{
-				"username", // $NON-NLS-1$
-				"password" // $NON-NLS-1$
-		});
+    public SSHSamplerBeanInfo() {
+        super(SSHSampler.class);
 
-		createPropertyGroup("Key File",
-				    new String[] {
-					"sshkeyfile",
-					"passphrase"
-				    });
-		
-		createPropertyGroup("execute", new String[]{
-				"command" // $NON-NLS-1$
-		});
-		
-		PropertyDescriptor p;
-		p = property("username"); // $NON-NLS-1$
-		p.setValue(NOT_UNDEFINED, Boolean.TRUE);
-		p.setValue(DEFAULT, "");
-		
-		p = property("password"); // $NON-NLS-1$
-		p.setValue(NOT_UNDEFINED, Boolean.TRUE);
-		p.setValue(DEFAULT, "");
+        createPropertyGroup("Server", // $NON-NLS-1$
+                new String[]{
+                    "hostname", // $NON-NLS-1$
+                    "port", // $NON-NLS-1$
+                    "connectionTimeout"
+                });
 
-		p = property("sshkeyfile");
-		p.setValue(NOT_UNDEFINED, Boolean.TRUE);
-		p.setValue(DEFAULT, "");
+        createPropertyGroup("User", // $NON-NLS-1$
+                new String[]{
+                    "username", // $NON-NLS-1$
+                    "password" // $NON-NLS-1$
+                });
 
-		p = property("passphrase");
-		p.setValue(NOT_UNDEFINED, Boolean.TRUE);
-		p.setValue(DEFAULT, "");
-		
-		p = property("hostname"); // $NON-NLS-1$
-		p.setValue(NOT_UNDEFINED, Boolean.TRUE);
-		p.setValue(DEFAULT, "");
-		
-		p = property("port"); // $NON-NLS-1$
-		p.setValue(NOT_UNDEFINED, Boolean.TRUE);
-		p.setValue(DEFAULT, new Integer(22));
+        createPropertyGroup("Key File",
+                new String[]{
+                    "sshkeyfile", // $NON-NLS-1$
+                    "passphrase" // $NON-NLS-1$
+                });
 
-		p = property("connectionTimeout");
-		p.setValue(NOT_UNDEFINED, Boolean.TRUE);
-		p.setValue(DEFAULT, new Integer(5000));
-		
-		p = property("command"); // $NON-NLS-1$
-		p.setValue(NOT_UNDEFINED, Boolean.TRUE);
-		p.setValue(DEFAULT, "date");
-	}
+        createPropertyGroup("Execute", new String[]{ 
+                    "command", // $NON-NLS-1$
+                    "useReturnCode", // $NON-NLS-1$
+                    "printStdErr" // $NON-NLS-1$
+                });
+
+        PropertyDescriptor p;
+        p = property("username"); // $NON-NLS-1$
+        p.setValue(NOT_UNDEFINED, Boolean.TRUE);
+        p.setValue(DEFAULT, "");
+
+        p = property("password"); // $NON-NLS-1$
+        p.setValue(NOT_UNDEFINED, Boolean.TRUE);
+        p.setValue(DEFAULT, "");
+
+        p = property("sshkeyfile");
+        p.setValue(NOT_UNDEFINED, Boolean.TRUE);
+        p.setValue(DEFAULT, "");
+
+        p = property("passphrase");
+        p.setValue(NOT_UNDEFINED, Boolean.TRUE);
+        p.setValue(DEFAULT, "");
+
+        p = property("hostname"); // $NON-NLS-1$
+        p.setValue(NOT_UNDEFINED, Boolean.TRUE);
+        p.setValue(DEFAULT, "");
+
+        p = property("port"); // $NON-NLS-1$
+        p.setValue(NOT_UNDEFINED, Boolean.TRUE);
+        p.setValue(DEFAULT, new Integer(22));
+
+        p = property("connectionTimeout");
+        p.setValue(NOT_UNDEFINED, Boolean.TRUE);
+        p.setValue(DEFAULT, new Integer(5000));
+
+        p = property("command"); // $NON-NLS-1$
+        p.setValue(NOT_UNDEFINED, Boolean.TRUE);
+        p.setValue(DEFAULT, "date");
+        
+        p = property("useReturnCode"); // $NON-NLS-1$
+        p.setValue(NOT_UNDEFINED, Boolean.TRUE);
+        p.setValue(DEFAULT, Boolean.TRUE);
+        
+        p = property("printStdErr"); // $NON-NLS-1$
+        p.setValue(NOT_UNDEFINED, Boolean.TRUE);
+        p.setValue(DEFAULT, Boolean.TRUE);
+    }
 }

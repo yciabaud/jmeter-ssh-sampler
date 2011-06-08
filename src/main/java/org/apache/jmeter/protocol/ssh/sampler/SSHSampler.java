@@ -54,6 +54,8 @@ public class SSHSampler extends AbstractSampler implements TestBean {
     private Session session = null;
     private String failureReason = "Unknown";
     private SSHSamplerUserInfo userinfo = null;
+    private boolean useReturnCode = true;
+    private boolean printStdErr = true;
 
     public SSHSampler() {
         super();
@@ -91,7 +93,11 @@ public class SSHSampler extends AbstractSampler implements TestBean {
             response = doCommand(session, command, res);
             res.setResponseData(response.getBytes());
 
-            res.setSuccessful("0".equals(res.getResponseCode()));
+            if(useReturnCode){
+                res.setSuccessful("0".equals(res.getResponseCode()));
+            }else{
+                res.setSuccessful(true);
+            }
 
             res.setResponseMessageOK();
         } catch (JSchException e1) {
@@ -136,18 +142,29 @@ public class SSHSampler extends AbstractSampler implements TestBean {
         res.sampleStart();
         channel.connect();
 
-        sb.append("=== stdin ===\n\n");
+        if(printStdErr){
+            sb.append("=== stdin ===\n\n");
+        }
+        
         for (String line = br.readLine(); line != null; line = br.readLine()) {
             sb.append(line);
             sb.append("\n");
         }
-        sb.append("\n\n=== stderr ===\n\n");
-        for (String line = err.readLine(); line != null; line = err.readLine()) {
-            sb.append(line);
-            sb.append("\n");
+        
+        if(printStdErr){
+            sb.append("\n\n=== stderr ===\n\n");
+            for (String line = err.readLine(); line != null; line = err.readLine()) {
+                sb.append(line);
+                sb.append("\n");
+            }
         }
         
-        res.setResponseCode(String.valueOf(channel.getExitStatus()));
+        if(useReturnCode){
+            res.setResponseCode(String.valueOf(channel.getExitStatus()));
+        }else{
+            res.setResponseCodeOK();
+        }
+        
         res.sampleEnd();
         
 
@@ -246,6 +263,24 @@ public class SSHSampler extends AbstractSampler implements TestBean {
     public void setConnectionTimeout(int connectionTimeout) {
         this.connectionTimeout = connectionTimeout;
     }
+
+    public boolean getPrintStdErr() {
+        return printStdErr;
+    }
+
+    public void setPrintStdErr(boolean printStdErr) {
+        this.printStdErr = printStdErr;
+    }
+
+    public boolean getUseReturnCode() {
+        return useReturnCode;
+    }
+
+    public void setUseReturnCode(boolean useReturnCode) {
+        this.useReturnCode = useReturnCode;
+    }
+    
+    
 
     @Override
     public void finalize() {
