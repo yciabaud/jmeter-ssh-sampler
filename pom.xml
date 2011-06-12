@@ -95,11 +95,11 @@
             <version>1.2.16</version>
         </dependency>
 		
-		<dependency>
-			<groupId>com.jcraft</groupId>
-			<artifactId>jsch</artifactId>
-			<version>0.1.44-1</version>
-		</dependency>
+        <dependency>
+            <groupId>com.jcraft</groupId>
+            <artifactId>jsch</artifactId>
+            <version>0.1.44-1</version>
+        </dependency>
     </dependencies>
 
     <build>
@@ -131,11 +131,11 @@
         </resources>	
     </build>
 	
-	<repositories>
-		<repository>
-			<id>Maven JMeter Repo</id>
-			<url>http://yciabaud.github.com/jmeter-maven-plugin/repository</url>
-		</repository>
-	</repositories>
+    <repositories>
+        <repository>
+            <id>Maven JMeter Repo</id>
+            <url>http://yciabaud.github.com/jmeter-maven-plugin/repository</url>
+        </repository>
+    </repositories>
 
 </project>

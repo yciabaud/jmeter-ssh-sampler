@@ -20,35 +20,30 @@ package org.apache.jmeter.protocol.ssh.sampler;
 import java.beans.PropertyDescriptor;
 
 import org.apache.jmeter.testbeans.BeanInfoSupport;
+import org.apache.jmeter.testbeans.gui.FileEditor;
 
-public class SSHSamplerBeanInfo extends BeanInfoSupport {
+public abstract class AbstractSSHSamplerBeanInfo extends BeanInfoSupport {
 
-    public SSHSamplerBeanInfo() {
-        super(SSHSampler.class);
+    public AbstractSSHSamplerBeanInfo(Class<? extends AbstractSSHSampler> clazz) {
+        super(clazz);
 
-        createPropertyGroup("Server", // $NON-NLS-1$
+        createPropertyGroup("server", // $NON-NLS-1$
                 new String[]{
                     "hostname", // $NON-NLS-1$
                     "port", // $NON-NLS-1$
                     "connectionTimeout"
                 });
 
-        createPropertyGroup("User", // $NON-NLS-1$
+        createPropertyGroup("user", // $NON-NLS-1$
                 new String[]{
                     "username", // $NON-NLS-1$
                     "password" // $NON-NLS-1$
                 });
 
-        createPropertyGroup("Key File",
+        createPropertyGroup("keyFile",
                 new String[]{
                     "sshkeyfile", // $NON-NLS-1$
                     "passphrase" // $NON-NLS-1$
-                });
-
-        createPropertyGroup("Execute", new String[]{ 
-                    "command", // $NON-NLS-1$
-                    "useReturnCode", // $NON-NLS-1$
-                    "printStdErr" // $NON-NLS-1$
                 });
 
         PropertyDescriptor p;
@@ -63,6 +58,7 @@ public class SSHSamplerBeanInfo extends BeanInfoSupport {
         p = property("sshkeyfile");
         p.setValue(NOT_UNDEFINED, Boolean.TRUE);
         p.setValue(DEFAULT, "");
+        p.setPropertyEditorClass(FileEditor.class);
 
         p = property("passphrase");
         p.setValue(NOT_UNDEFINED, Boolean.TRUE);
@@ -80,16 +76,5 @@ public class SSHSamplerBeanInfo extends BeanInfoSupport {
         p.setValue(NOT_UNDEFINED, Boolean.TRUE);
         p.setValue(DEFAULT, new Integer(5000));
 
-        p = property("command"); // $NON-NLS-1$
-        p.setValue(NOT_UNDEFINED, Boolean.TRUE);
-        p.setValue(DEFAULT, "date");
-        
-        p = property("useReturnCode"); // $NON-NLS-1$
-        p.setValue(NOT_UNDEFINED, Boolean.TRUE);
-        p.setValue(DEFAULT, Boolean.TRUE);
-        
-        p = property("printStdErr"); // $NON-NLS-1$
-        p.setValue(NOT_UNDEFINED, Boolean.TRUE);
-        p.setValue(DEFAULT, Boolean.TRUE);
     }
 }
