@@ -2,7 +2,9 @@ Overview
 ------------
 
 SSH Sampler for Jakarta JMeter that executes commands (eg, iostat) over an SSH session, and returns the output. The output may then be parsed or logged by a listener for use elsewhere in the testing process.
-This repository is a fork of http://code.google.com/p/jmeter-ssh-sampler/ to add some features.
+This repository is a fork of http://code.google.com/p/jmeter-ssh-sampler/ because the development seems dead.
+
+A second component deals with SFTP to allow you to download files over SSH to assert on its content.
 
 Installation
 ------------
@@ -19,10 +21,23 @@ Usage
 
 Using the plugin is simple (assuming familiarity with SSH and JMeter):
 
+### SSH Command
+
 1. Create a new Test Plan
 2. Add a Thread Group
 3. Add a Sampler > SSH Command
-4. Specify the host to connect to, port, username and password (unencrypted), and a command to execute (such as date)
+4. Specify the host to connect to, port, username and password (unencrypted) or a key file, and a command to execute (such as date)
+5. Add a Listener > View Results Tree
+6. Run the test 
+
+
+### SSH SFTP
+
+1. Create a new Test Plan
+2. Add a Thread Group
+3. Add a Sampler > SSH SFTP
+4. Specify the host to connect to, port, username and password (unencrypted) or a key file, and a SFTP command to execute (such as get)
+5. Specify a source file to download, an output file or to print the content in the test
 5. Add a Listener > View Results Tree
 6. Run the test 
 
@@ -41,6 +56,8 @@ My Maven repository is configured to download jmeter dependencies:
 			<id>Maven JMeter Repo</id>
 			<url>http://yciabaud.github.com/jmeter-maven-plugin/repository</url>
 		</repository>
+		
+I will deploy the future stable revisions to this Maven repository.
 	
 Contributing
 ------------
