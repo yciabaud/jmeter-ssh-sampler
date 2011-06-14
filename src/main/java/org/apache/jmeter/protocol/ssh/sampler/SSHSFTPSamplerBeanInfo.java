@@ -18,7 +18,6 @@
 package org.apache.jmeter.protocol.ssh.sampler;
 
 import java.beans.PropertyDescriptor;
-import org.apache.jmeter.testbeans.gui.FileEditor;
 
 public class SSHSFTPSamplerBeanInfo extends AbstractSSHSamplerBeanInfo {
 
@@ -49,7 +48,6 @@ public class SSHSFTPSamplerBeanInfo extends AbstractSSHSamplerBeanInfo {
         p = property("source"); // $NON-NLS-1$
         p.setValue(NOT_UNDEFINED, Boolean.TRUE);
         p.setValue(DEFAULT, "");
-        p.setPropertyEditorClass(FileEditor.class);
         
         p = property("printFile"); // $NON-NLS-1$
         p.setValue(NOT_UNDEFINED, Boolean.TRUE);
@@ -58,7 +56,6 @@ public class SSHSFTPSamplerBeanInfo extends AbstractSSHSamplerBeanInfo {
         p = property("destination"); // $NON-NLS-1$
         p.setValue(NOT_UNDEFINED, Boolean.TRUE);
         p.setValue(DEFAULT, "");
-        p.setPropertyEditorClass(FileEditor.class);
         
         
         

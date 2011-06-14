@@ -25,7 +25,6 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.List;
-import java.util.Vector;
 import org.apache.jmeter.samplers.Entry;
 import org.apache.jmeter.samplers.SampleResult;
 import org.apache.jorphan.logging.LoggingManager;
@@ -37,16 +36,14 @@ import org.apache.log.Logger;
  *
  */
 public class SSHSFTPSampler extends AbstractSSHSampler {
-    
+
     private static final Logger log = LoggingManager.getLoggerForClass();
-    
     public static final String SFTP_COMMAND_GET = "get";
     public static final String SFTP_COMMAND_PUT = "put";
-    public static final String SFTP_COMMAND_RM  = "rm";
-    public static final String SFTP_COMMAND_RMDIR  = "rmdir";
-    public static final String SFTP_COMMAND_LS  = "ls";
+    public static final String SFTP_COMMAND_RM = "rm";
+    public static final String SFTP_COMMAND_RMDIR = "rmdir";
+    public static final String SFTP_COMMAND_LS = "ls";
     public static final String SFTP_COMMAND_RENAME = "ls";
-    
     private String source;
     private String destination;
     private String action;
@@ -55,7 +52,7 @@ public class SSHSFTPSampler extends AbstractSSHSampler {
     public SSHSFTPSampler() {
         super("SSH SFTP Sampler");
     }
-    
+
     /**
      * Returns last line of output from the command
      */
@@ -66,7 +63,8 @@ public class SSHSFTPSampler extends AbstractSSHSampler {
 
 
         // Set up sampler return types
-        res.setSamplerData(source + " -> " + destination);
+        res.setSamplerData(action + " " + source);
+
         res.setDataType(SampleResult.TEXT);
         res.setContentType("text/plain");
 
@@ -106,11 +104,11 @@ public class SSHSFTPSampler extends AbstractSSHSampler {
             res.setSuccessful(false);
             res.setResponseCode("Connection Failed");
             res.setResponseMessage(e1.getMessage());
+        } finally {
+            // Try a disconnect/sesson = null here instead of in finalize.
+            disconnect();
+            setSession(null);
         }
-
-        // Try a disconnect/sesson = null here instead of in finalize.
-        disconnect();
-        setSession(null);
         return res;
     }
 
@@ -134,41 +132,41 @@ public class SSHSFTPSampler extends AbstractSSHSampler {
         res.sampleStart();
         channel.connect();
 
-        if(SFTP_COMMAND_GET.equals(action)){
-            
-            if(!printFile){
+        if (SFTP_COMMAND_GET.equals(action)) {
+
+            if (!printFile) {
                 channel.get(src, dst);
-            }else{
-                 BufferedReader br = new BufferedReader(new InputStreamReader(channel.get(src)));
-                 for (String line = br.readLine(); line != null; line = br.readLine()) {
+            } else {
+                BufferedReader br = new BufferedReader(new InputStreamReader(channel.get(src)));
+                for (String line = br.readLine(); line != null; line = br.readLine()) {
                     sb.append(line);
                     sb.append("\n");
                 }
             }
-   
-        }else if (SFTP_COMMAND_PUT.equals(action)){
+
+        } else if (SFTP_COMMAND_PUT.equals(action)) {
             channel.put(src, dst);
-        }else if (SFTP_COMMAND_LS.equals(action)){
-            List<String> ls = channel.ls(src);
-            for(String line : ls){
-                sb.append(line);
+        } else if (SFTP_COMMAND_LS.equals(action)) {
+            List<ChannelSftp.LsEntry> ls = channel.ls(src);
+            for (ChannelSftp.LsEntry line : ls) {
+                sb.append(line.getLongname());
                 sb.append("\n");
             }
-        }else if (SFTP_COMMAND_RM.equals(action)){
+        } else if (SFTP_COMMAND_RM.equals(action)) {
             channel.rm(src);
-        }else if (SFTP_COMMAND_RMDIR.equals(action)){
+        } else if (SFTP_COMMAND_RMDIR.equals(action)) {
             channel.rmdir(src);
-        }else if (SFTP_COMMAND_RENAME.equals(action)){
+        } else if (SFTP_COMMAND_RENAME.equals(action)) {
             channel.rename(src, dst);
         }
-        
+
         res.sampleEnd();
-        
+
 
         channel.disconnect();
         return sb.toString();
     }
-    
+
     // Accessors
     public String getDestination() {
         return destination;
@@ -185,7 +183,7 @@ public class SSHSFTPSampler extends AbstractSSHSampler {
     public void setSource(String source) {
         this.source = source;
     }
-    
+
     public String getAction() {
         return action;
     }
@@ -201,6 +199,4 @@ public class SSHSFTPSampler extends AbstractSSHSampler {
     public void setPrintFile(boolean printFile) {
         this.printFile = printFile;
     }
-   
-    
 }

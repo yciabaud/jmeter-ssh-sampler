@@ -143,7 +143,7 @@ public abstract class AbstractSSHSampler extends AbstractSampler implements Test
         return session;
     }
 
-    public void setSession(Session session) {
+    protected void setSession(Session session) {
         this.session = session;
     }
 
