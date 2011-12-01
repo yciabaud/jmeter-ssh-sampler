@@ -1,10 +1,11 @@
 Overview
 ------------
 
-SSH Sampler for Jakarta JMeter that executes commands (eg, iostat) over an SSH session, and returns the output. The output may then be parsed or logged by a listener for use elsewhere in the testing process.
-This repository is a fork of http://code.google.com/p/jmeter-ssh-sampler/ because the development seems dead.
+SSH Sampler for Jakarta JMeter that executes commands (eg, iostat) over an SSH session, and returns the output. 
+The output may then be parsed or logged by a listener for use elsewhere in the testing process.
+This repository is a fork of http://code.google.com/p/jmeter-ssh-sampler/ to manage pull reqests.
 
-A second component deals with SFTP to allow you to download files over SSH to assert on its content.
+A second component deals with SFTP to allow you to download files over SSH to assert on their content.
 
 Installation
 ------------
