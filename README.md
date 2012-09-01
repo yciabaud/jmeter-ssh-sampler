@@ -51,14 +51,6 @@ Maven retrieves the following dependencies:
 * JMeter 2.3+ is capable of running this plugin 
 
 
-My Maven repository is configured to download jmeter dependencies:
-
-		<repository>
-			<id>Maven JMeter Repo</id>
-			<url>http://yciabaud.github.com/jmeter-maven-plugin/repository</url>
-		</repository>
-		
-I will deploy the future stable revisions to this Maven repository.
 	
 Contributing
 ------------
