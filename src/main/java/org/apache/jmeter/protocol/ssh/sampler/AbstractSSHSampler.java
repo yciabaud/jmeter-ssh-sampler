@@ -27,6 +27,8 @@ import com.jcraft.jsch.JSchException;
 import com.jcraft.jsch.Session;
 import com.jcraft.jsch.UserInfo;
 
+import java.io.Serializable;
+
 /**
  * Abstract SSH Sampler that manage SSH connexion and delegates
  * sampling.
@@ -178,7 +180,7 @@ public abstract class AbstractSSHSampler extends AbstractSampler implements Test
      * and looks over its data when queried for information. This should only be visible to the SSH Sampler
      * class.
      */
-    private class SSHSamplerUserInfo implements UserInfo {
+    private class SSHSamplerUserInfo implements UserInfo, Serializable {
 
         private AbstractSSHSampler owner;
 
