@@ -39,6 +39,7 @@ public class SSHCommandSampler extends AbstractSSHSampler {
     
     private String command = "date";
     private boolean useReturnCode = true;
+    private boolean useTty = true;
     private boolean printStdErr = true;
 
     public SSHCommandSampler() {
@@ -117,6 +118,7 @@ public class SSHCommandSampler extends AbstractSSHSampler {
     private String doCommand(Session session, String command, SampleResult res) throws JSchException, IOException {
         StringBuilder sb = new StringBuilder();
         ChannelExec channel = (ChannelExec) session.openChannel("exec");
+        channel.setPty(useTty);
 
         BufferedReader br = new BufferedReader(new InputStreamReader(channel.getInputStream()));
         BufferedReader err = new BufferedReader(new InputStreamReader(channel.getErrStream()));
@@ -177,6 +179,14 @@ public class SSHCommandSampler extends AbstractSSHSampler {
 
     public void setUseReturnCode(boolean useReturnCode) {
         this.useReturnCode = useReturnCode;
+    }
+
+    public boolean getUseTty() {
+        return useTty;
+    }
+
+    public void setUseTty(boolean useTty) {
+        this.useTty = useTty;
     }
     
 }
