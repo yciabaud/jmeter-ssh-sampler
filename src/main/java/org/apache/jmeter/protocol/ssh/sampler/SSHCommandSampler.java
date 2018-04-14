@@ -143,6 +143,13 @@ public class SSHCommandSampler extends AbstractSSHSampler {
             }
         }
         
+        while (true) {
+            if (channel.isClosed()) {
+                break;
+            }
+            try {Thread.sleep(100);} catch (Exception ee){};
+        }
+
         if(useReturnCode){
             res.setResponseCode(String.valueOf(channel.getExitStatus()));
         }else{
