@@ -69,6 +69,7 @@ public abstract class AbstractSSHSampler extends AbstractSampler implements Test
                 jsch.addIdentity(getSshkeyfile());
             }
             session.setConfig("StrictHostKeyChecking", "no");
+            session.setConfig("PreferredAuthentications", "publickey,keyboard-interactive,password");
             session.connect(connectionTimeout);
         } catch (JSchException e) {
             failureReason = e.getMessage();
