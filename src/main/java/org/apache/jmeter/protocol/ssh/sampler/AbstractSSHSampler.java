@@ -17,6 +17,7 @@
  */
 package org.apache.jmeter.protocol.ssh.sampler;
 
+import com.jcraft.jsch.UIKeyboardInteractive;
 import org.apache.jmeter.samplers.AbstractSampler;
 import org.apache.jmeter.testbeans.TestBean;
 import org.apache.jorphan.logging.LoggingManager;
@@ -181,7 +182,7 @@ public abstract class AbstractSSHSampler extends AbstractSampler implements Test
      * and looks over its data when queried for information. This should only be visible to the SSH Sampler
      * class.
      */
-    private class SSHSamplerUserInfo implements UserInfo, Serializable {
+    private class SSHSamplerUserInfo implements UserInfo, Serializable, UIKeyboardInteractive {
 
         private AbstractSSHSampler owner;
 
@@ -232,6 +233,17 @@ public abstract class AbstractSSHSampler extends AbstractSampler implements Test
          */
         public boolean useKeyFile() {
             return owner.getSshkeyfile().length() > 0;
+        }
+
+        @Override
+        public String[] promptKeyboardInteractive(String destination, String name, String instruction, String[] prompt,
+                                                  boolean[] echo) {
+            if (prompt.length != 1 || echo[0] || this.getPassword() == null) {
+                return null;
+            }
+            String[] response = new String[1];
+            response[0] = this.getPassword();
+            return response;
         }
     } /* Class SSHSamplerUserInfo */
 
