@@ -13,13 +13,24 @@
         <url>https://github.com/yciabaud/jmeter-ssh-sampler</url>
         <connection>scm:git:git://github.com/yciabaud/jmeter-ssh-sampler.git</connection>
         <developerConnection>scm:git:git@github.com:yciabaud/jmeter-ssh-sampler.git</developerConnection>
-      <tag>HEAD</tag>
-  </scm>
+        <tag>HEAD</tag>
+    </scm>
 
     <issueManagement>
         <url>https://github.com/yciabaud/jmeter-ssh-sampler/issues</url>
         <system>GitHub Issues</system>
     </issueManagement>
+
+    <distributionManagement>
+        <repository>
+            <id>packagecloud-travis</id>
+            <url>packagecloud+https://packagecloud.io/yciabaud/jmeter-ssh-sampler</url>
+        </repository>
+        <snapshotRepository>
+            <id>packagecloud-travis</id>
+            <url>packagecloud+https://packagecloud.io/yciabaud/jmeter-ssh-sampler</url>
+        </snapshotRepository>
+    </distributionManagement>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -29,7 +40,7 @@
         <dependency>
             <groupId>com.jcraft</groupId>
             <artifactId>jsch</artifactId>
-            <version>0.1.54</version>
+            <version>0.1.55</version>
         </dependency>
         <dependency>
             <groupId>org.apache.jmeter</groupId>
@@ -73,5 +84,12 @@
                 <filtering>true</filtering>
             </resource>
         </resources>
+        <extensions>
+            <extension>
+                <groupId>io.packagecloud.maven.wagon</groupId>
+                <artifactId>maven-packagecloud-wagon</artifactId>
+                <version>0.0.4</version>
+            </extension>
+        </extensions>
     </build>
 </project>
