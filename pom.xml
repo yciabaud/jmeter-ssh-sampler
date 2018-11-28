@@ -3,7 +3,7 @@
 
     <groupId>org.apache.jmeter.protocol.ssh.sampler</groupId>
     <artifactId>jmeter-ssh-sampler</artifactId>
-    <version>1.1.2-SNAPSHOT</version>
+    <version>1.2.0</version>
     <packaging>jar</packaging>
 
     <name>ApacheJMeter_ssh</name>
@@ -13,7 +13,7 @@
         <url>https://github.com/yciabaud/jmeter-ssh-sampler</url>
         <connection>scm:git:git://github.com/yciabaud/jmeter-ssh-sampler.git</connection>
         <developerConnection>scm:git:git@github.com:yciabaud/jmeter-ssh-sampler.git</developerConnection>
-        <tag>HEAD</tag>
+        <tag>jmeter-ssh-sampler-1.2.0</tag>
     </scm>
 
     <issueManagement>
