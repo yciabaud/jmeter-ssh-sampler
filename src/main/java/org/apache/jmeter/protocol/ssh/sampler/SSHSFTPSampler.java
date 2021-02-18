@@ -156,6 +156,8 @@ public class SSHSFTPSampler extends AbstractSSHSampler {
             channel.rm(src);
         } else if (SFTP_COMMAND_RMDIR.equals(action)) {
             channel.rmdir(src);
+        } else if (SFTP_COMMAND_MKDIR.equals(action)) {
+        	channel.mkdir(src);
         } else if (SFTP_COMMAND_RENAME.equals(action)) {
             channel.rename(src, dst);
         }

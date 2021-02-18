@@ -42,6 +42,7 @@ public class SSHSFTPSamplerBeanInfo extends AbstractSSHSamplerBeanInfo {
             SSHSFTPSampler.SFTP_COMMAND_PUT,
             SSHSFTPSampler.SFTP_COMMAND_RM, 
             SSHSFTPSampler.SFTP_COMMAND_RMDIR,
+            SSHSFTPSampler.SFTP_COMMAND_MKDIR,
             SSHSFTPSampler.SFTP_COMMAND_LS,
             SSHSFTPSampler.SFTP_COMMAND_RENAME
         });
