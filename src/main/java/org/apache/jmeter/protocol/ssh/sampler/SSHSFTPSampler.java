@@ -42,6 +42,7 @@ public class SSHSFTPSampler extends AbstractSSHSampler {
     public static final String SFTP_COMMAND_PUT = "put";
     public static final String SFTP_COMMAND_RM = "rm";
     public static final String SFTP_COMMAND_RMDIR = "rmdir";
+    public static final String SFTP_COMMAND_MKDIR = "mkdir";
     public static final String SFTP_COMMAND_LS = "ls";
     public static final String SFTP_COMMAND_RENAME = "rename";
     private String source;
